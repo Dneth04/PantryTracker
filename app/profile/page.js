@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { UserAuth } from "../context/AuthContext";
 import Spinner from "../components/Spinner";
 import { Box, Stack, Typography, Button, TextField, Modal } from '@mui/material';
 import { collection, query, getDocs, getDoc, setDoc, doc, deleteDoc } from 'firebase/firestore';
@@ -19,25 +18,21 @@ const Modalstyle = {
   display: 'flex',
   flexDirection: 'column',
   gap: 3,
-}
+};
 
-const profile = () => {
-  const { user } = UserAuth();
+const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [pantry, setPantry] = useState([]);
   const [open, setOpen] = useState(false);
   const [itemName, setItemName] = useState('');
 
   useEffect(() => {
-    const checkAuthentication = async () => {
+    const fetchData = async () => {
       await new Promise((resolve) => setTimeout(resolve, 50));
       setLoading(false);
+      updatePantry();
     };
-    checkAuthentication();
-  }, [user]);
-
-  useEffect(() => {
-    updatePantry();
+    fetchData();
   }, []);
 
   const updatePantry = async () => {
@@ -53,7 +48,6 @@ const profile = () => {
 
   const addItem = async (item) => {
     const docRef = doc(collection(firestore, 'pantry'), item);
-    // Check if exists
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       const { count } = docSnap.data();
@@ -91,7 +85,7 @@ const profile = () => {
       ) : (
         <>
           <Typography variant="h6" gutterBottom>
-            Welcome, {user.displayName} - you are logged in to the profile page - a protected route.
+            Welcome to the profile page.
           </Typography>
           <Box width="100vw" height="auto" display={'flex'} justifyContent={'center'} flexDirection={'column'} alignItems={'center'} gap={2}>
             <Modal
@@ -173,13 +167,9 @@ const profile = () => {
             </Box>
           </Box>
         </>
-      ) : (
-        <p style={{ color: 'black' }}>
-          You must be logged in to view this page - protected route.
-        </p>
       )}
     </Box>
   );
 };
 
-export default profile;
+export default Profile;
