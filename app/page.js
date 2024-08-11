@@ -49,13 +49,7 @@ export default function Home() {
       >
         <Typography variant="h3" component="h3" gutterBottom sx={{ fontWeight: 600 }} >
           WELCOME TO STOCK UP
-          <IconButton
-            component={Link}
-            href="/"
-            sx={{ color: 'white', ml: 2 }}
-          >
-            <ShoppingCartIcon sx={{ color: 'Black', ml: 2, fontSize: "68px" }}/>
-          </IconButton>
+          
         </Typography>
         <Typography variant="h6" component="p" gutterBottom sx={{ fontWeight: 600 , color: "Black"}}>
           Simplify your daily life! Effortlessly track your grocery items and ensure you never run out of essentials.
