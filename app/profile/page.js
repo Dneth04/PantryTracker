@@ -88,7 +88,7 @@ const profile = () => {
     >
       {loading ? (
         <Spinner />
-      ) : user ? (
+      ) : (
         <>
           <Typography variant="h6" gutterBottom>
             Welcome, {user.displayName} - you are logged in to the profile page - a protected route.
